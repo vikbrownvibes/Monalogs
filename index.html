@@ -3,1422 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>monalogs</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Episodes | Streaming Platform</title>
     <style>
-        :root {
-            --primary-color: #5e72e4;
-            --secondary-color: #825ee4;
-            --accent-color: #f5365c;
-            --text-color: #2d3748;
-            --bg-color: #ffffff;
-            --card-bg: #f8f9fa;
-            --transition-speed: 0.4s;
-            --section-spacing: 80px;
-            --border-radius: 12px;
-            --box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            --box-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .dark-mode {
-            --primary-color: #7a8ef1;
-            --secondary-color: #9b7af1;
-            --accent-color: #ff6b8b;
-            --text-color: #f7fafc;
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            --box-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: all var(--transition-speed) ease-in-out;
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        /* Custom Cursor */
-        .custom-cursor {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s, width 0.3s, height 0.3s;
-            mix-blend-mode: exclusion;
-        }
-
-        .custom-cursor-follower {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-color);
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-            transition: transform 0.4s, width 0.3s, height 0.3s;
-            opacity: 0.7;
-        }
-
-        /* Header with Logo */
-        .logo-container {
-            width: 100%;
-            height: 280px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #EDC8FF;
-            margin-bottom: var(--section-spacing);
-            overflow: hidden;
-            position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-        }
-
-        .logo-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd' opacity='0.2'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
-
-        .logo {
-            width: 360px;
-            height: 150px;
-            background-color: rgba(255, 255, 255, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            transition: all var(--transition-speed);
-            z-index: 1;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .logo:hover {
-            transform: scale(1.05) rotateY(10deg);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo-text {
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 1px;
-        }
-
-
-        .contain-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Fits the whole image inside the div */
-}
-
-        /* Profile Section */
-        .profile-section {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 0 20px;
-            max-width: 1000px;
-            margin: 0 auto var(--section-spacing);
-            text-align: center;
         }
 
-        .profile-image-container {
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             position: relative;
-            width: 220px;
-            height: 220px;
-            margin-bottom: 30px;
+            z-index: 10;
         }
 
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 6px solid var(--accent-color);
-            box-shadow: var(--box-shadow);
-            transition: all var(--transition-speed);
-            position: relative;
-            z-index: 1;
-        }
-
-        .profile-image-container::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            background-size: 200% 200%;
-            animation: gradientBG 8s ease infinite;
-            z-index: 0;
-            opacity: 0.7;
-            filter: blur(15px);
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .profile-image:hover {
-            transform: scale(1.05);
-            box-shadow: var(--box-shadow-hover);
-        }
-
-        .bio {
-            max-width: 700px;
-            margin-bottom: 40px;
-            font-size: 1.1rem;
-            position: relative;
-        }
-
-        .bio::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            margin: 30px auto 0;
-            border-radius: 3px;
-        }
-
-        .name {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: var(--primary-color);
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .name::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50%;
-            height: 2px;
-            background: var(--accent-color);
-            transition: all 0.3s ease;
-        }
-
-        .name:hover {
-            transform: rotate(5deg) scale(1.05);
-            color: var(--secondary-color);
-        }
-
-        .name:hover::after {
-            width: 100%;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-        }
-
-        .title {
-            font-size: 1.3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--card-bg);
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            transition: all var(--transition-speed);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .social-link:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-link:hover::before {
-            left: 100%;
-        }
-
-        /* Content Sections */
-        .content-sections {
+        .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        .section {
-            margin-bottom: var(--section-spacing);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-header {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(var(--primary-color-rgb), 0.1);
-            position: relative;
         }
 
-        .section-header::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff4d4d, #f9cb28);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .home-btn {
+            background: linear-gradient(135deg, #ff4d4d 0%, #f9cb28 100%);
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 203, 40, 0.3);
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(249, 203, 40, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 40px 0;
         }
 
         .section-title {
-            font-size: 2.2rem;
-            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
             position: relative;
-            display: inline-block;
+        }
+
+        .section-title h1 {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .section-title::after {
             content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50%;
-            height: 3px;
-            background: var(--accent-color);
-            transform-origin: left;
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4d4d, #f9cb28);
+            margin: 15px auto 0;
+            border-radius: 2px;
         }
 
-        .section:hover .section-title::after {
-            transform: scaleX(1);
-        }
-
-        .toggle-section {
-            background: none;
-            border: none;
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .toggle-section:hover {
-            background-color: rgba(var(--accent-color-rgb), 0.1);
-            transform: rotate(90deg);
-        }
-
-        .cards-container {
+        /* Cards Grid */
+        .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
+            margin-bottom: 50px;
         }
 
+        /* Card Styles */
         .card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: all var(--transition-speed);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
-            border: 1px solid rgba(var(--primary-color-rgb), 0.1);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.1), rgba(var(--secondary-color-rgb), 0.1));
-            opacity: 0;
-            transition: opacity var(--transition-speed);
         }
 
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: var(--box-shadow-hover);
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card-image-container {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            position: relative;
+            box-shadow: 0 15px 40px rgba(255, 77, 77, 0.2);
         }
 
         .card-image {
+            height: 200px;
             width: 100%;
-            height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .card:hover .card-image {
-            transform: scale(1.1);
+            border-bottom: 2px solid #333;
         }
 
         .card-content {
-            padding: 25px;
-            position: relative;
+            padding: 20px;
         }
 
         .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            transition: color var(--transition-speed);
-        }
-
-        .card:hover .card-title {
-            color: var(--accent-color);
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 600;
         }
 
         .card-description {
+            color: #aaa;
             margin-bottom: 20px;
-            color: var(--text-color);
-            opacity: 0.9;
+            line-height: 1.5;
         }
 
-        .card-link {
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 20px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 30px;
+        .stream-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4d4d 0%, #f9cb28 100%);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 50px;
             text-decoration: none;
-            transition: all var(--transition-speed);
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-link i {
-            margin-left: 8px;
-            transition: transform var(--transition-speed);
-        }
-
-        .card-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.4);
-        }
-
-        .card-link:hover i {
-            transform: translateX(5px);
-        }
-
-        .card-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .card-link:hover::before {
-            left: 100%;
-        }
-
-        .hidden-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-
-        .hidden-content.show {
-            max-height: 2000px;
-        }
-
-        /* Gallery Section */
-        .gallery-section {
-            margin: var(--section-spacing) auto;
-            max-width: 1200px;
-            padding: 0 20px;
-            position: relative;
-        }
-
-        .gallery-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            background-color: var(--card-bg);
-            padding: 30px;
-        }
-
-        .gallery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .gallery-title {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            position: relative;
-        }
-
-        .gallery-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: var(--accent-color);
-        }
-
-        .gallery-slider {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
-            will-change: transform;
-        }
-
-        .gallery-slide {
-            min-width: 100%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 10px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            aspect-ratio: 1/1;
-            transition: all var(--transition-speed);
-        }
-
-        .gallery-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-            opacity: 0;
-            transition: opacity var(--transition-speed);
-            z-index: 1;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-item:hover::before {
-            opacity: 1;
-        }
-
-        .gallery-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .gallery-item:hover .gallery-image {
-            transform: scale(1.1);
-        }
-
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            color: white;
-            transform: translateY(100%);
-            transition: transform var(--transition-speed);
-            z-index: 2;
-            opacity: 0;
-        }
-
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .gallery-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .gallery-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            transition: all var(--transition-speed);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            font-size: 1.2rem;
         }
 
-        .gallery-btn:hover {
-            background-color: var(--secondary-color);
+        .stream-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .gallery-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .gallery-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(var(--primary-color-rgb), 0.3);
-            cursor: pointer;
-            transition: all var(--transition-speed);
-        }
-
-        .gallery-dot.active {
-            background-color: var(--primary-color);
-            transform: scale(1.2);
-        }
-
-        /* Dark Mode Toggle */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 1000;
-            background-color: var(--card-bg);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: var(--box-shadow);
-            cursor: pointer;
-            transition: all var(--transition-speed);
-            border: 1px solid rgba(var(--primary-color-rgb), 0.1);
-        }
-
-        .dark-mode-toggle:hover {
-            transform: scale(1.1) rotate(180deg);
-            box-shadow: var(--box-shadow-hover);
-        }
-
-        .dark-mode-toggle i {
-            font-size: 1.3rem;
-            color: var(--accent-color);
-            transition: all var(--transition-speed);
-        }
-
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(var(--primary-color-rgb), 0.1);
-            border-radius: 50%;
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-100vh) rotate(360deg); }
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
         }
 
         /* Footer */
         footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            padding: 30px 0;
             text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            margin-top: var(--section-spacing);
-            color: white;
-            clip-path: polygon(0 20%, 100% 0, 100% 100%, 0% 100%);
-            position: relative;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.3);
         }
 
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
-        }
-
-        footer p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .footer-links {
+        .footer-content {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .footer-link {
-            color: white;
-            text-decoration: none;
-            transition: all var(--transition-speed);
-            position: relative;
-        }
-
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: white;
-            transition: width var(--transition-speed);
-        }
-
-        .footer-link:hover {
-            color: var(--accent-color);
-        }
-
-        .footer-link:hover::after {
-            width: 100%;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
+        }
+
+        .footer-text {
+            margin-bottom: 20px;
+            color: #777;
+        }
+         .no-underline  {
+              text-decoration: none;
+         }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.5s ease forwards;
             opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition-speed);
-            z-index: 99;
         }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
 
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .logo {
-                width: 300px;
-                height: 130px;
-            }
-            
-            .logo-text {
-                font-size: 2.4rem;
-            }
-            
-            .name {
-                font-size: 2.5rem;
-            }
-            
-            .cards-container {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            }
-
-            .gallery-slide {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .logo-container {
-                height: 220px;
-            }
-            
-            .logo {
-                width: 250px;
-                height: 110px;
-            }
-            
-            .logo-text {
-                font-size: 2rem;
-            }
-            
-            .profile-image-container {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .name {
-                font-size: 2rem;
-            }
-            
-            .title {
-                font-size: 1.1rem;
-            }
-            
-            .section-title, .gallery-title {
-                font-size: 1.8rem;
-            }
-
-            .gallery-container {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .logo-container {
-                height: 180px;
-                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
-            }
-            
-            .logo {
-                width: 200px;
-                height: 90px;
-            }
-            
-            .logo-text {
-                font-size: 1.6rem;
-            }
-            
-            .name {
-                font-size: 1.8rem;
-            }
-            
-            .cards-container {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-slide {
+            .cards-grid {
                 grid-template-columns: 1fr;
             }
             
-            .dark-mode-toggle {
-                top: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-            }
-
-            .gallery-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+            .section-title h1 {
+                font-size: 28px;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-follower"></div>
-
-    <div class="particles" id="particles"></div>
-
-    <div class="dark-mode-toggle" id="darkModeToggle">
-        <i class="fas fa-moon"></i>
-    </div>
-
-    <a href="#" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
-    <div class="logo-container">
-        <a href="https://ibb.co/0Rst9qzD"><img src="https://i.ibb.co/HfhdP79F/1500x500.jpg" alt="1500x500" border="0" class="contain-image" /></a>
-
-    </div>
-
-    <div class="profile-section">
-        <div class="profile-image-container">
-            
-            <img src="https://i.ibb.co/YF128YRy/5998869458019534475.jpg" alt="5998869458019534475" border="0" alt="Profile Picture" class="profile-image"></a><br /><a target='_blank' href='https://nl.imgbb.com/'>имг</a><br />
-        </div>
-        <h1 class="name">The  PH Barney</h1>
-        <p class="title">Content Creator</p>
-        <div class="bio">
-            <p>From heartbreak to Monad.<br>
-I found healing, purpose, and my voice<br>
-just by showing up.<br>
-Now I hand the mic to others<br><br>
-                
-      
-
-🎙️ Monalogs 
-<br><br>
-spotlighting NADs across the chain.
-What’s your Monad story?
-<br>
-Every Saturday at 4PM on X Space 💜
-            
-            </p>
-        </div>
-        <div class="social-links">
-            <a href="https://x.com/Softieeexx" class="social-link"><i class="fab fa-twitter"></i></a>
-            
-        </div>
-    </div>
-
-    <div class="content-sections">
-        <div class="section" id="youtube-section">
-            <div class="section-header">
-                <h2 class="section-title">YouTube Videos</h2>
-                <button class="toggle-section" aria-label="Toggle section">
-                    <i class="fas fa-chevron-down"></i>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">MONALOGS</div>
+                <button class="home-btn" id="homeBtnTop">
+                    <a href="https://monadlog.vercel.app/" class="no-underline">Home</a>
                 </button>
             </div>
-            <div class="hidden-content" id="youtube-content">
-                <div class="cards-container">
-                    <div class="card">
-                        <div class="card-image-container">
-                            <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="YouTube Video" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">soon</h3>
-                            <p class="card-description">coming soon.</p>
-                            <a href="https://youtube.com" class="card-link" target="_blank">Watch Now <i class="fas fa-external-link-alt"></i></a>
-                        </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="section-title">
+                <h1>Episodes</h1>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <img src="https://i.ibb.co/s97JqgL1/gettyimages-1469392615-640x640.jpg" alt="gettyimages-1469392615-640x640" border="0" alt="Episode 5" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Coming Soon</h3>
+                        <p class="card-description">Coming soon to our platform. Stay tuned for this exciting new episode!</p>
+                        <a href="#" class="stream-btn">Stream Now</a>
                     </div>
-                    <div class="card">
-                        <div class="card-image-container">
-                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="YouTube Video" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">soon</h3>
-                            <p class="card-description">coming soon.</p>
-                            <a href="https://youtube.com" class="card-link" target="_blank">Watch Now <i class="fas fa-external-link-alt"></i></a>
-                        </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <img src="https://i.ibb.co/s97JqgL1/gettyimages-1469392615-640x640.jpg" alt="gettyimages-1469392615-640x640" border="0" alt="Episode 5" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Coming Soon</h3>
+                        <p class="card-description">Coming soon to our platform. Stay tuned for this exciting new episode!</p>
+                        <a href="#" class="stream-btn">Stream Now</a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <img src="https://i.ibb.co/s97JqgL1/gettyimages-1469392615-640x640.jpg" alt="gettyimages-1469392615-640x640" border="0" alt="Episode 5" class="card-image">
+            
+                    <div class="card-content">
+                        <h3 class="card-title">Coming Soon</h3>
+                        <p class="card-description">Coming soon to our platform. Stay tuned for this exciting new episode!</p>
+                        <a href="#" class="stream-btn">Stream Now</a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card"><img src="https://i.ibb.co/s97JqgL1/gettyimages-1469392615-640x640.jpg" alt="gettyimages-1469392615-640x640" border="0" alt="Episode 5" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Coming Soon</h3>
+                        <p class="card-description">Coming soon to our platform. Stay tuned for this exciting new episode!</p>
+                        <a href="#" class="stream-btn">Stream Now</a>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card">
+                    
+<a href="https://ibb.co/Qv0jMJsH"><img src="https://i.ibb.co/s97JqgL1/gettyimages-1469392615-640x640.jpg" alt="gettyimages-1469392615-640x640" border="0" alt="Episode 5" class="card-image"></a>
+                    <div class="card-content">
+                        <h3 class="card-title">Coming Soon</h3>
+                        <p class="card-description">Coming soon to our platform. Stay tuned for this exciting new episode!</p>
+                        <a href="#" class="stream-btn">Stream Now</a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="section" id="blog-section">
-            <div class="section-header">
-                <h2 class="section-title">Monthly Recap</h2>
-                <button class="toggle-section" aria-label="Toggle section">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-            </div>
-            <div class="hidden-content" id="blog-content">
-                <div class="cards-container">
-                    <div class="card">
-                        <div class="card-image-container">
-                            
-                                <img src="https://i.ibb.co/BKYyCWmG/5998869458019534494.jpg" alt="5998869458019534494" border="0" alt="Blog Post" class="card-image"></a><br /><a target='_blank' href='https://nl.imgbb.com/'>free photos</a><br />
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">JULY EPISODE</h3>
-                            <p class="card-description">coming soon.</p>
-                            <a href="podcast.html" class="card-link" target="_blank"> View <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-image-container">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Blog Post" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">soon</h3>
-                            <p class="card-description">coming soon.</p>
-                            <a href="https://medium.com" class="card-link" target="_blank">Read Article <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section" id="spotify-section">
-            <div class="section-header">
-                <h2 class="section-title">Podcast Playlists</h2>
-                <button class="toggle-section" aria-label="Toggle section">
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-            </div>
-            <div class="hidden-content" id="spotify-content">
-                <div class="cards-container">
-                    <div class="card">
-                        <div class="card-image-container">
-                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Spotify Playlist" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">soon</h3>
-                            <p class="card-description">coming soon</p>
-                            <a href="https://spotify.com" class="card-link" target="_blank">Listen Now <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-image-container">
-                            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Spotify Playlist" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <h3 class="card-title">soon</h3>
-                            <p class="card-description">coming soon</p>
-                            <a href="https://spotify.com" class="card-link" target="_blank">Listen Now <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Gallery Section -->
-    <div class="gallery-section">
-        <div class="gallery-container">
-            <div class="gallery-header">
-                <h2 class="gallery-title">My Gallery</h2>
-            </div>
-            <div class="gallery-slider" id="gallerySlider">
-                <!-- Slide 1 -->
-                <div class="gallery-slide">
-                    <div class="gallery-item">
-                        
-<img src="https://i.ibb.co/4nZP7Dvk/5989919768376887635.jpg" alt="5989919768376887635" border="0" alt="Gallery Image 4" class="gallery-image" /></a>
-                        <div class="gallery-caption">
-                            <h3>Morning Sunshine</h3>
-                            <p>A beautiful morning </p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        
-                        <img src="https://i.ibb.co/YF128YRy/5998869458019534475.jpg" alt="5998869458019534475" border="0" alt="Gallery Image 2" class="gallery-image"></a><br /><a target='_blank' href='https://nl.imgbb.com/'>имг</a><br />
-                        <div class="gallery-caption">
-                            <h3>Nillion Event </h3>
-                            <p>MPC Arc</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        
-                        <img src="https://i.ibb.co/JWccKv1V/Gu1ie-Ys-WUAAR8v-A.jpg" alt="Gu1ie-Ys-WUAAR8v-A" border="0" alt="Gallery Image 3" class="gallery-image"></a>
-                        <div class="gallery-caption">
-                            <h3>Grass</h3>
-                            <p>Touch Grass</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        
-                            <img src="https://i.ibb.co/cSpc8b9z/Guik-VMw-WQAA3-Rjw.jpg" alt="Guik-VMw-WQAA3-Rjw" border="0" alt="Gallery Image 4" class="gallery-image"></a>
-                        <div class="gallery-caption">
-                            <h3>Softie Lifestyle</h3>
-                            <p>Fast Cars</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="gallery-slide">
-                    <div class="gallery-item">
-
-                        <img src="https://i.ibb.co/fdnkGMj1/Gu-YAACe-WEAAI3n-B.jpg" alt="Gu-YAACe-WEAAI3n-B" border="0"                          alt="Gallery Image 5" class="gallery-image"></a>
-                        <div class="gallery-caption">
-                            <h3>Rich Auntie</h3>
-                            <p>Golden hour at the coast</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gallery Image 6" class="gallery-image">
-                        <div class="gallery-caption">
-                            <h3>Model Portfolio</h3>
-                            <p>Professional modeling shots</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gallery Image 7" class="gallery-image">
-                        <div class="gallery-caption">
-                            <h3>Street Photography</h3>
-                            <p>Capturing urban life moments</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gallery Image 8" class="gallery-image">
-                        <div class="gallery-caption">
-                            <h3>Fashion Editorial</h3>
-                            <p>High fashion concept shoot</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-nav">
-                <button class="gallery-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                <button class="gallery-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="gallery-dots" id="galleryDots">
-                <div class="gallery-dot active"></div>
-                <div class="gallery-dot"></div>
-            </div>
-        </div>
-    </div>
+    </main>
 
     <footer>
-        <p>All rights reserved.</p>
-        <p>Designed and developed with ❤️</p>
-        <div class="footer-links">
-            <a href="#" class="footer-link">Privacy Policy</a>
-            <a href="#" class="footer-link">Terms of Service</a>
-            <a href="#" class="footer-link">Contact</a>
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text"> All rights reserved.</p>
+                <button class="home-btn" id="homeBtnBottom">
+                   <a href="https://monadlog.vercel.app/" class="no-underline">Back To Home</a>
+
+                </button>
+            </div>
         </div>
     </footer>
 
-    <script>
-        // Set CSS variables for RGB values
-        document.documentElement.style.setProperty('--primary-color-rgb', '94, 114, 228');
-        document.documentElement.style.setProperty('--secondary-color-rgb', '130, 94, 228');
-        document.documentElement.style.setProperty('--accent-color-rgb', '245, 54, 92');
-
-        // Dark mode toggle
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        
-        // Check for saved user preference or use system preference
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        const currentTheme = localStorage.getItem('theme');
-        
-        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-            body.classList.add('dark-mode');
-            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            document.documentElement.style.setProperty('--primary-color-rgb', '122, 142, 241');
-            document.documentElement.style.setProperty('--secondary-color-rgb', '155, 122, 241');
-            document.documentElement.style.setProperty('--accent-color-rgb', '255, 107, 139');
-        }
-        
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            localStorage.setItem('theme', theme);
-            
-            if (body.classList.contains('dark-mode')) {
-                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                document.documentElement.style.setProperty('--primary-color-rgb', '122, 142, 241');
-                document.documentElement.style.setProperty('--secondary-color-rgb', '155, 122, 241');
-                document.documentElement.style.setProperty('--accent-color-rgb', '255, 107, 139');
-            } else {
-                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                document.documentElement.style.setProperty('--primary-color-rgb', '94, 114, 228');
-                document.documentElement.style.setProperty('--secondary-color-rgb', '130, 94, 228');
-                document.documentElement.style.setProperty('--accent-color-rgb', '245, 54, 92');
-            }
-        });
-        
-        // Custom cursor
-        const cursor = document.querySelector('.custom-cursor');
-        const cursorFollower = document.querySelector('.custom-cursor-follower');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-        
-        // Cursor hover effects
-        const hoverElements = document.querySelectorAll('a, button, .card, .social-link, .toggle-section, .back-to-top, .gallery-item, .gallery-btn');
-        
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(3)';
-                cursor.style.opacity = '0.5';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.5)';
-                cursorFollower.style.borderColor = 'transparent';
-            });
-            
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursor.style.opacity = '1';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.borderColor = 'var(--accent-color)';
-            });
-        });
-        
-        // Section toggle functionality
-        const sectionToggles = document.querySelectorAll('.toggle-section');
-        
-        sectionToggles.forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const section = toggle.closest('.section');
-                const content = section.querySelector('.hidden-content');
-                const icon = toggle.querySelector('i');
-                
-                content.classList.toggle('show');
-                
-                if (content.classList.contains('show')) {
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                } else {
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
-            });
-        });
-        
-        // Animate sections on scroll
-        const sections = document.querySelectorAll('.section, .gallery-section');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-        
-        // Open all sections by default
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.hidden-content').forEach(content => {
-                content.classList.add('show');
-            });
-            
-            document.querySelectorAll('.toggle-section i').forEach(icon => {
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            });
-        });
-        
-        // Back to top button
-        const backToTop = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        
-        backToTop.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 20;
-        
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            
-            // Random size between 2px and 6px
-            const size = Math.random() * 4 + 2;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            
-            // Random position
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.top = `${Math.random() * 100}%`;
-            
-            // Random animation duration between 10s and 30s
-            const duration = Math.random() * 20 + 10;
-            particle.style.animationDuration = `${duration}s`;
-            
-            // Random delay
-            particle.style.animationDelay = `${Math.random() * 10}s`;
-            
-            particlesContainer.appendChild(particle);
-        }
-        
-        // Gallery slider functionality
-        const gallerySlider = document.getElementById('gallerySlider');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const dots = document.querySelectorAll('.gallery-dot');
-        let currentSlide = 0;
-        const slideCount = document.querySelectorAll('.gallery-slide').length;
-        
-        function updateSlider() {
-            gallerySlider.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
-            // Update dots
-            dots.forEach((dot, index) => {
-                if (index === currentSlide) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            // Update button states
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === slideCount - 1;
-        }
-        
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlider();
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < slideCount - 1) {
-                currentSlide++;
-                updateSlider();
-            }
-        });
-        
-        // Click on dots to navigate
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                updateSlider();
-            });
-        });
-        
-        // Initialize slider
-        updateSlider();
-        
-        // Add ripple effect to buttons
-        const buttons = document.querySelectorAll('.card-link, .social-link, .toggle-section, .back-to-top, .gallery-btn');
-        
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                const x = e.clientX - e.target.getBoundingClientRect().left;
-                const y = e.clientY - e.target.getBoundingClientRect().top;
-                
-                const ripple = document.createElement('span');
-                ripple.classList.add('ripple');
-                ripple.style.left = `${x}px`;
-                ripple.style.top = `${y}px`;
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 1000);
-            });
-        });
-    </script>
+    
 </body>
 </html>
